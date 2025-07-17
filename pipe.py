@@ -45,14 +45,13 @@ with output_cam_csv.open("w", newline="", encoding="utf-8") as csvfile:
     for filled_row in filled_camera_rows:
         writer.writerow(filled_row)
 
-# If the target CSV is an IMU, resample first to 60 Hz
+# If the target CSV is an IMU, remove duplicates
 if "imu" in data_csv.stem.lower():
     target_freq_hz = 60.0
 
-    resampled_data = resample_sensor.resample_sensor_data(
+    resampled_data = resample_sensor.remove_sensor_duplicates(
         common.open_csv(data_csv),
-        target_freq_hz,
-        "timestamp_ns",  # Specify the time column for resampling
+        time_col,
     )
 
     # Write resampled data to output CSV
@@ -87,3 +86,6 @@ with output_data_csv.open("w", newline="", encoding="utf-8") as csvfile:
         for col, value in zip(data_cols, resampled_values):
             row[col] = value
         writer.writerow(row)
+
+if "imu" in data_csv.stem.lower():
+    temp_csv.unlink() # type: ignore
