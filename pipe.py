@@ -11,7 +11,7 @@ import resample_freq
 import resample_sensor
 import common
 import fill_cam
-
+# ciao
 if len(sys.argv) < 7:
     print(
         "Usage: pipe.py <camera_csv> <data_csv> <time_col> <data_cols> <output_cam_csv> <output_data_csv> [interpolation_method]"
