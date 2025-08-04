@@ -38,6 +38,7 @@ filled_camera_rows = fill_cam.fill_cam_gaps(
 
 # Write filled camera data to output CSV
 output_cam_csv.parent.mkdir(parents=True, exist_ok=True)
+
 with output_cam_csv.open("w", newline="", encoding="utf-8") as csvfile:
     fieldnames = filled_camera_rows[0].keys()
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
